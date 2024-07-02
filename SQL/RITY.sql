@@ -305,7 +305,6 @@ VALUES
     (9, 3),
     (10, 4);
    
--- arreglar el erro default de total
 
 -- DEFINICION DE VISTAS
 
