@@ -81,6 +81,8 @@ La tematica de esta base de datos esta pensada en el negocio de ventas de produc
 
 ```
 
+## DER SIMPLIFICADO
+![Logo de mi proyecto](https://github.com/DamiArebalo/Rity_Just_Arebalo/blob/main/Assets/DER_Final.png?raw=true)
 
 
 ## Listado de tablas y descripcion
