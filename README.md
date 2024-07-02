@@ -35,7 +35,7 @@ La tematica de esta base de datos esta pensada en el negocio de ventas de produc
 
 1. **Reserva de Productos**: Creamos una base de datos que nos permita registrar la información de los productos su categoria y atributos asi como actualizar el stock disponible.
 
-2. **Registro de Facturaciones**: Esta DB da la posibilidad de registrar los productos facturados por un clientes y la informacion del vendedor que se encargo de esta venta
+2. **Registro de Facturaciones**: Esta DB da la posibilidad de registrar los productos facturados por un cliente y la informacion del vendedor que se encargo de esta venta
 
 3. **Control de Equipos**: La base de datos debe permitirnos registrar la informacion de equipos de ventas, con sus lideres y vendedores
 
