@@ -38,7 +38,7 @@ CREATE TABLE ofertas(
 	id_oferta INT NOT NULL AUTO_INCREMENT
 	,id_prod INT NOT NULL COMMENT 'Campo FK con tabla PRODUCTOS'
 	,descuento INT NOT NULL DEFAULT(0) COMMENT 'Porcentaje de descuento de 2 digitos SI ES 0 = NO HAY DESCUENTO'
-	,precio_final DECIMAL(10,2) COMMENT 'campo calculable con PRODUCTOS.precio_lista * (1 - descuento)'
+	,precio_final DECIMAL(10,2) NOT NULL DEFAULT(0) COMMENT 'campo calculable con funcion'
 	,PRIMARY KEY(id_oferta)
 )COMMENT'TABLA CON LA INFORMACION DE LAS OFERTAS VIGENTES O NO VIGENTES DE LOS PRODUCTOS';
 
@@ -109,26 +109,26 @@ ALTER TABLE link_vendedor_fact
 	ADD CONSTRAINT fk_link_vendedor_fact
 		FOREIGN KEY (id_fact) REFERENCES facturaciones(id_fact);
 		
-ALTER TABLE FACTURACIONES 
+ALTER TABLE facturaciones 
 	ADD CONSTRAINT fk_fact_cl
 		FOREIGN KEY (id_cliente,dni) REFERENCES clientes(id_cliente,dni);
 	
 		
-ALTER TABLE PRODUCTOS 
+ALTER TABLE productos 
 	ADD CONSTRAINT fk_cat_prod
 		FOREIGN KEY (id_cat) REFERENCES categorias(id_cat);
 		
-ALTER TABLE OFERTAS 
+ALTER TABLE ofertas 
 	ADD CONSTRAINT fk_ofertas_prod
 		FOREIGN KEY (id_prod) REFERENCES productos(id_prod);
 
 		
-ALTER TABLE GRUPOS 
+ALTER TABLE grupos 
 	ADD CONSTRAINT fk_grupo_lider
 		FOREIGN KEY (id_lider) REFERENCES lideres(id_lider);
 	
 		
-ALTER TABLE VENDEDORES
+ALTER TABLE vendedores
 	ADD CONSTRAINT fk_vendedor_grupo
 		FOREIGN KEY (id_grupo) REFERENCES grupos(id_grupo);
 	

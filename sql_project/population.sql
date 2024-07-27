@@ -33,7 +33,8 @@ VALUES
 INSERT INTO ofertas (id_prod, descuento)
 VALUES
     (3, 20),
-    (2, 10);
+    (2, 10),
+    (1, 0);
    
 
 
