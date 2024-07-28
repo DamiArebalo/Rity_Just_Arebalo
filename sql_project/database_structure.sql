@@ -89,13 +89,19 @@ CREATE TABLE link_vendedor_fact(
 	,PRIMARY KEY(id_vendedor, id_fact)
 )COMMENT 'TABLA DE RELACION ENTRE FACTURAS Y VENDEDORES';
 
-CREATE TABLE log_ofertas (
+CREATE TABLE IF NOT EXISTS log_ofertas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_prod INT,
     precio_lista DECIMAL(10,2),
     descuento DECIMAL(5,2),
     precio_final DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS log_errores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    error_message TEXT,
+    error_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 

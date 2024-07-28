@@ -5,18 +5,26 @@ USE rityjust;
 DELIMITER //
 
 CREATE TRIGGER trg_ofertas_calcula_precio_final
-AFTER INSERT ON ofertas
+BEFORE INSERT ON ofertas
 FOR EACH ROW
 BEGIN
-    -- Calcular el precio final utilizando la función calcularPrecioFinal
-    SET @v_precio_final = COALESCE(calcularPrecioFinal(obtenerPrecioLista(NEW.id_prod), NEW.descuento), 0);
+    DECLARE precio_lista DECIMAL(12,2);
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+    BEGIN
+        -- Insertar el mensaje de error en la tabla de log de errores
+        INSERT INTO log_errores (error_message)
+        VALUES (CONCAT('Error in trg_ofertas_calcula_precio_final: ', ERROR_MESSAGE()));
+    END;
 
-    -- Actualizar el precio final en el registro insertado
-    UPDATE ofertas SET precio_final = @v_precio_final WHERE id_oferta = NEW.id_oferta;
+    -- Obtener el precio de lista del producto
+    SET precio_lista = obtenerPrecioLista(NEW.id_prod);
+
+    -- Calcular el precio final utilizando la función calcularPrecioFinal
+    SET NEW.precio_final = COALESCE(calcularPrecioFinal(precio_lista, NEW.descuento), 0);
 
     -- Insertar los valores en la tabla de registro
     INSERT INTO log_ofertas (id_prod, precio_lista, descuento, precio_final)
-    VALUES (NEW.id_prod, obtenerPrecioLista(NEW.id_prod), NEW.descuento, @v_precio_final);
+    VALUES (NEW.id_prod, precio_lista, NEW.descuento, NEW.precio_final);
 END //
 
 
