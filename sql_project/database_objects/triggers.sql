@@ -5,19 +5,20 @@ USE rityjust;
 DELIMITER //
 
 CREATE TRIGGER trg_ofertas_calcula_precio_final
-BEFORE INSERT ON ofertas
+AFTER INSERT ON ofertas
 FOR EACH ROW
 BEGIN
     -- Calcular el precio final utilizando la función calcularPrecioFinal
     SET @v_precio_final = COALESCE(calcularPrecioFinal(obtenerPrecioLista(NEW.id_prod), NEW.descuento), 0);
 
-    -- Asignar el precio final al nuevo registro
-    SET NEW.precio_final = @v_precio_final;
+    -- Actualizar el precio final en el registro insertado
+    UPDATE ofertas SET precio_final = @v_precio_final WHERE id_oferta = NEW.id_oferta;
 
     -- Insertar los valores en la tabla de registro
     INSERT INTO log_ofertas (id_prod, precio_lista, descuento, precio_final)
     VALUES (NEW.id_prod, obtenerPrecioLista(NEW.id_prod), NEW.descuento, @v_precio_final);
 END //
+
 
 -- Calcula el total del producto agregado a la factura multiplicando la cantidad por el el PRODUCTOS.precio_lista o OFERTAS.precio_final SI es distinto a 0  . 
 CREATE TRIGGER trg_calcula_total
