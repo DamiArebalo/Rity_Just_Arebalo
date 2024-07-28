@@ -1,0 +1,7 @@
+id_vendedor,id_grupo,nombre_completo,cuit
+1,1,"Pedro López","20345678902"
+2,2,"Laura Fernández","20456789013"
+3,1,"Damian Arebalo","20345776902"
+4,2,"Sheila Gonzalez","20446789013"
+5,1,"Juan López","20345788902"
+6,2,"Abril Fernández","20426789013"

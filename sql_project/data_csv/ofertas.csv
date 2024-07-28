@@ -1,0 +1,4 @@
+id_oferta,id_prod,descuento,precio_final
+1,3,20,12000.00
+2,2,10,4500.00
+3,1,0,10000.00

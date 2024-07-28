@@ -1,2 +1,7 @@
+id_cliente,dni,nombre_completo,mail,numero_tel
+1,"12345678","Ana García","ana.garcia@gmail.com","1122334455"
+2,"87654321","Carlos Martínez","carlos.martinez@hotmail.com","1133557799"
+3,"23456789","Elena Pérez","elena.perez@hotmail.com","1144667788"
+4,"34567890","Diego Fernández","diego.fernandez@gmail.com","1155889900"
 
 

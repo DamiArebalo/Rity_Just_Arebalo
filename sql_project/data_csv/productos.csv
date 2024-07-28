@@ -1,0 +1,5 @@
+id_prod,id_cat,descripcion,nombre_prod,stock,precio_lista
+1,3,"Hidratación profunda para una piel suave y radiante.","Crema Facial Hidratante",20,15000.00
+2,2,"Relajación y bienestar con aroma floral.","Aceite Esencial de Lavanda",15,5000.00
+3,3,"Reduce arrugas y líneas de expresión. Fórmula con colágeno y ácido hialurónico.","Serum Antiedad",25,18000.00
+4,2,"Regeneración celular y cicatrización. Ideal para pieles sensibles.","Aceite de Rosa Mosqueta",18,7000.00
