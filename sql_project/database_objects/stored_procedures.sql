@@ -18,4 +18,6 @@ BEGIN
     WHERE id_fact = idFactura;
 END //
 
+
+
 DELIMITER ;

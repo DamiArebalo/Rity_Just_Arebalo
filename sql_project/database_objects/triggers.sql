@@ -4,30 +4,40 @@ USE rityjust;
 	
 DELIMITER //
 
--- calcula el precio final de un producto luego de aplicarle el descuento formateado. Si el descuento es 0 el precio final tambien
 CREATE TRIGGER trg_ofertas_calcula_precio_final
-AFTER INSERT ON ofertas
+BEFORE INSERT ON ofertas
 FOR EACH ROW
 BEGIN
-    DECLARE v_precio_lista DECIMAL(10,2);
-    DECLARE v_precio_final DECIMAL(10,2);
+    -- Calcular el precio final utilizando la función calcularPrecioFinal
+    SET @v_precio_final = COALESCE(calcularPrecioFinal(obtenerPrecioLista(NEW.id_prod), NEW.descuento), 0);
 
-    -- Obtener el precio de lista del producto
-    SET v_precio_lista = obtenerPrecioLista(NEW.id_prod);
+    -- Asignar el precio final al nuevo registro
+    SET NEW.precio_final = @v_precio_final;
 
-    -- Verificar si el descuento es 0
-    IF NEW.descuento = 0 THEN
-        SET v_precio_final = 0;
-    ELSE
-        -- Calcular el precio final utilizando la función calcularPrecioFinal
-        SET v_precio_final = COALESCE(calcularPrecioFinal(v_precio_lista, NEW.descuento), 0);
-    END IF;
-
-    -- Actualizar el precio final en la tabla ofertas
-    UPDATE ofertas
-    SET precio_final = v_precio_final
-    WHERE id_prod = NEW.id_prod AND descuento = NEW.descuento;
+    -- Insertar los valores en la tabla de registro
+    INSERT INTO log_ofertas (id_prod, precio_lista, descuento, precio_final)
+    VALUES (NEW.id_prod, obtenerPrecioLista(NEW.id_prod), NEW.descuento, @v_precio_final);
 END //
+
+-- Calcula el total del producto agregado a la factura multiplicando la cantidad por el el PRODUCTOS.precio_lista o OFERTAS.precio_final SI es distinto a 0  . 
+CREATE TRIGGER trg_calcula_total
+BEFORE INSERT ON link_fact_producto
+FOR EACH ROW
+BEGIN
+    
+    SET @product_price = (
+        SELECT CASE
+            WHEN o.precio_final > 0 THEN o.precio_final  -- condicion para ver si tiene oferta
+            ELSE p.precio_lista
+        END
+        FROM productos AS p  
+        LEFT JOIN ofertas AS o ON p.id_prod = o.id_prod
+        WHERE p.id_prod = NEW.id_prod
+    );
+    SET NEW.total =  COALESCE(@product_price * NEW.cantidad, 0);
+
+    
+END//
 
 
 

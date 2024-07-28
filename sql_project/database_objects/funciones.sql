@@ -18,12 +18,12 @@ CREATE FUNCTION obtenerPrecioLista(id_producto INT)
 RETURNS DECIMAL(12,2)
 DETERMINISTIC
 BEGIN
-    DECLARE precio_lista DECIMAL(10,2);
-    
+    DECLARE v_precio_lista DECIMAL(10,2);
+
     -- Obtener el precio de lista del producto
-    SELECT precio_lista INTO precio_lista
+    SELECT precio_lista INTO v_precio_lista
     FROM productos
     WHERE id_prod = id_producto;
-    
-    RETURN precio_lista;
+
+    RETURN v_precio_lista;
 END //
