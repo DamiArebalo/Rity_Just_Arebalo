@@ -11,7 +11,7 @@ CREATE TABLE clientes(
 	,nombre_completo varchar(100) NOT NULL
 	,mail varchar(100) NOT NULL UNIQUE COMMENT 'Dato Validado desde backend con formato mail'
 	,numero_tel VARCHAR(20) NOT NULL UNIQUE 
-	,PRIMARY KEY (id_cliente,dni) COMMENT 'clave conformada por dni + id_cliente'
+	,PRIMARY KEY (id_cliente) COMMENT 'clave conformada por id_cliente'
 
 )COMMENT 'Tabla con informacion de los clientes al momento de la factura';
 
@@ -45,7 +45,6 @@ CREATE TABLE ofertas(
 
 CREATE TABLE facturaciones(
 	id_fact INT NOT NULL AUTO_INCREMENT
-	,dni VARCHAR(8) 
 	,id_cliente INT NOT NULL COMMENT 'cliente foraneo a tabla clientes'
 	,total DECIMAL(12,2) DEFAULT(0) COMMENT'total de la factura calculado con la suma de los totales de productos facturados'
 	,fecha_fact datetime NOT NULL DEFAULT(current_timestamp) COMMENT'Fecha de compra'
@@ -125,7 +124,7 @@ ALTER TABLE link_vendedor_fact
 		
 ALTER TABLE facturaciones 
 	ADD CONSTRAINT fk_fact_cl
-		FOREIGN KEY (id_cliente,dni) REFERENCES clientes(id_cliente,dni);
+		FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente);
 	
 		
 ALTER TABLE productos 
