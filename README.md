@@ -164,7 +164,8 @@
 **Ejemplo de consulta:**
 
 ```sql
-SELECT * FROM vw_listado_productos;
+SELECT * FROM vw_listado_productos
+ORDER BY id_prod ASC;
 ```
 
 ### Vista: vw_productos_con_stock
@@ -201,7 +202,7 @@ WHERE Stock > 20;
 
 ```sql
 -- Obtener las facturas con comisión superior a $500
-SELECT id_fact, nombre_vendedor, comision
+SELECT id_fact, vendedor_nombre, comision
 FROM vw_vendedores_facturas
 WHERE comision > 500
 ORDER BY comision DESC;
@@ -222,7 +223,7 @@ ORDER BY comision DESC;
 
 ```sql
 -- Obtener los detalles de las facturas que incluyen el producto "Serum Antiedad"
-SELECT Id_Factura, nombre_cliente, productos_involucrados, total_factura
+SELECT id_factura, nombre_cliente, productos_involucrados, total_factura
 FROM vw_factura_detalle
 WHERE productos_involucrados LIKE '%Serum Antiedad%';
 ```
