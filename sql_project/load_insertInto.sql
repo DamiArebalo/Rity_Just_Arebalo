@@ -1,5 +1,3 @@
-USE rityjust
-
 -- Inserción de datos en la tabla "clientes"
 INSERT INTO clientes (dni, nombre_completo, mail, numero_tel)
 VALUES

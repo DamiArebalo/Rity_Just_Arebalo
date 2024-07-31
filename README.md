@@ -292,8 +292,6 @@ WHERE productos_involucrados LIKE '%Serum Antiedad%';
 CALL actualizarTotalFactura(5);
 ```
 
-# Documentación de Procedimientos Almacenados
-
 ## Procedimiento Almacenado: `actualizarStock`
 
 **Descripción:** Este procedimiento actualiza el stock de productos agregando una cantidad específica.
@@ -307,8 +305,6 @@ CALL actualizarTotalFactura(5);
 -- Llamar al procedimiento para aumentar el stock en 50 unidades
 CALL actualizarStock(50);
 ```
-
-# Documentación de Procedimientos Almacenados
 
 ## Procedimiento Almacenado: `actualizarStockSolo`
 
@@ -358,14 +354,22 @@ SELECT obtenerPrecioLista(456); -- Devuelve el precio de lista correspondiente
 ```
 
 ## Como correr mi codigo
+* ---CON CSV-----
 1. crear un codespace y situarse dentro de la carpeta del proyecto
 2. en la terminal colocar el comando --> make
 3. disfrutar la base de datos
 
+* -- CON INSERT INTO --
+1. abrir nuestro shell o interfaz de mysql 
+2. ejecutar database_structure.sql
+3. ejecutar los archivos database_objects
+4. ejecutar el archivo load_insertInto
+5. probar el codigo
+
 ## Herramientas y tecnologias usadas
 * MySQL (Motor de bases de datos )
 * Dbeaver (Interfaz grafica)
-* Microsoft Copilot (para automatizar el script de ingreso de datos ficticios)
+* Microsoft Copilot (para automatizar el script//csv de ingreso de datos ficticios) 
   
 ----------------------
 

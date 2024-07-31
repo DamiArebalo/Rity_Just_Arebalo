@@ -18,12 +18,12 @@ CREATE VIEW vw_productos_con_stock AS
 
 
 -- vista que muestre las ventas que hicieron los vendedores
-CREATE VIEW vw_vendedores_facturas AS 
+CREATE VIEW  vw_vendedores_facturas AS 
 	SELECT 
 		v.nombre_completo AS vendedor_nombre
 		, lf.id_fact
 		, f.total
-		, (f.total * 0.2) as comision
+		, (f.total * 0.2) as comision -- 20% de comision
 	FROM vendedores v
 		JOIN link_vendedor_fact lf ON v.id_vendedor = lf.id_vendedor
 		join facturaciones f on f.id_fact = lf.id_fact;

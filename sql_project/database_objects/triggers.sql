@@ -4,7 +4,11 @@ USE rityjust;
 	
 DELIMITER //
 
-CREATE TRIGGER trg_ofertas_calcula_precio_final
+USE rityjust;
+
+DELIMITER //
+
+CREATE TRIGGER IF NOT EXISTS trg_ofertas_calcula_precio_final
 BEFORE INSERT ON ofertas
 FOR EACH ROW
 BEGIN
@@ -29,7 +33,7 @@ END //
 
 
 -- Calcula el total del producto agregado a la factura multiplicando la cantidad por el el PRODUCTOS.precio_lista o OFERTAS.precio_final SI es distinto a 0  . 
-CREATE TRIGGER trg_calcula_total
+CREATE TRIGGER IF NOT EXISTS trg_calcula_total
 BEFORE INSERT ON link_fact_producto
 FOR EACH ROW
 BEGIN
@@ -46,7 +50,15 @@ BEGIN
     SET NEW.total =  COALESCE(@product_price * NEW.cantidad, 0);
 
  
+END//
 
+-- Trigger que actualize los totales de todas las facturas apenas se normalize las tablas link
+
+CREATE TRIGGER IF NOT EXISTS trg_calcula_total_factura
+AFTER INSERT ON link_fact_producto
+FOR EACH ROW
+BEGIN 
+	CALL actualizarTotalFactura(NEW.id_fact); 
 END//
 
 
