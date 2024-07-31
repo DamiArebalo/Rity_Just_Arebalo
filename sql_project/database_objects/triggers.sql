@@ -49,6 +49,23 @@ BEGIN
 END//
 
 
+ -- trigger para actualizar el total de la factura sumando el total de los productos facturados
+CREATE TRIGGER `calcula_total_facturas`
+BEFORE INSERT ON link_fact_producto
+FOR EACH ROW
+BEGIN
+    DECLARE total_amount DECIMAL(12,2);
+    
+    SELECT SUM(total) INTO total_amount
+    FROM link_fact_producto
+    WHERE id_fact = NEW.id_fact;
+    
+    UPDATE facturaciones
+    	SET total = total_amount
+    	WHERE id_fact = NEW.id_fact;
+END
+//
+
 
 
 

@@ -1,45 +1,22 @@
 # <center>Primer Entrega </center>
-@Damian Carlos Arebalo
-
-
-
----
-
-### **Consignas:**
-- La base de datos debe contener al menos:
-    * ~ 15 tablas, entre las cuales debe haber al menos 1 tabla de hechos,  2 tablas transaccionales.
-    * ~ 5 vistas.
-    * ~ 2 stored procedure.
-    * ~ 2  trigger.
-    * ~ 2 funciones
-    
-- El documento debe contener:
-    - Introducción
-    - Objetivo
-    - Situación problemática
-    - Modelo de negocio
-    - Diagrama de entidad relació
-    - Listado de tablas con descripción de estructura (columna,descripción, tipo de datos, tipo de clave)
-    - Scripts de creación de cada objeto de la base de datos
-    - Scripts de inserción de datos
-    - Informes generados en base a la información de la base
-    - Herramientas y tecnologías usadas
+@Carlos Damian Arebalo
 
 
 
 ---
 
 ## Tematica del proyecto
-La tematica de esta base de datos esta pensada en el negocio de ventas de productos JUST que tiene mi madre, el cual tiene un programa de grupos tambien para tener registro y comisiones de ventas
-## Modelo de negocio
+¡Bienvenidos al repositorio de la base de datos "Rity Just"! Esta base de datos respalda el negocio de ventas de productos JUST, dirigido por mi propia Madre. Desde el almacen de productos, hasta el registro de facturaciones y el control de equipos de ventas, "Rity Just" abarca todos los aspectos necesarios para gestionar eficientemente  y darle un respiro a esos registros manuales con los que actualmente se maneja el negocio.
 
-1. **Reserva de Productos**: Creamos una base de datos que nos permita registrar la información de los productos su categoria y atributos asi como actualizar el stock disponible.
+## OBJETIVOS DE LA BASE DE DATOS
+
+1. **Almacen de Productos**: Registramos la información de los productos con su categoria y atributos asi como actualizar el stock disponible.
 
 2. **Registro de Facturaciones**: Esta DB da la posibilidad de registrar los productos facturados por un cliente y la informacion del vendedor que se encargo de esta venta
 
-3. **Control de Equipos**: La base de datos debe permitirnos registrar la informacion de equipos de ventas, con sus lideres y vendedores
+3. **Control de Equipos**: Permitirnos registrar la informacion de GRUPOS de ventas, con sus lideres y vendedores
 
-4. **Registro de Clientes**: La DB registra correctamente los datos de los clientes que compran productos
+4. **Registro de Clientes**: Almacena eficientemente los datos de los clientes que previo a la compra de productos registran sus datos en la web
 
 
 ## Diagrama entidad relacion (DER)
@@ -97,6 +74,10 @@ La tematica de esta base de datos esta pensada en el negocio de ventas de produc
 |               | PRECIO_LISTA      | DECIMAL(12,2) NOT NULL                |
 
 
+| Tabla         | Columna           | Tipo de Datos                         |
+| ------------- | ----------------- |                                  ---: |
+| CATEGORIAS    | ID_Cat            | INT   NOT NULL                        |
+|               | NOMBRE            | VARCHAR(70)                           |
 
 
 | Tabla         | Columna           | Tipo de Datos                         |
@@ -124,12 +105,6 @@ La tematica de esta base de datos esta pensada en el negocio de ventas de produc
 
 | Tabla         | Columna           | Tipo de Datos                         |
 | ------------- | ----------------- |                                  ---: |
-| categorias    | ID_Cat            | INT   NOT NULL                        |
-|               | NOMBRE            | VARCHAR(70)                           |
-
-
-| Tabla         | Columna           | Tipo de Datos                         |
-| ------------- | ----------------- |                                  ---: |
 | LIDERES       | ID_LIDER          | INT  NOT NULL                         |
 |               | NOMBRE            | VARCHAR(100) NOT NULL                 |
 |               | CUIIT             | VARCHAR(11) NOT NULL                  |
@@ -149,7 +124,28 @@ La tematica de esta base de datos esta pensada en el negocio de ventas de produc
 |               | TOTAL             | DECIMAL(10,2)                         |
 
 
+| Tabla         | Columna           | Tipo de Datos                         |
+| ------------- | ----------------- |                                  ---: |
+| OFERTAS       | ID_OFERTA         | INT NOT NULL AI                       |
+|               | ID_PROD           | INT NOT NULL                          |
+|               | DESCUENTO         | INT NOT NULL  DEFAULT(0)              |
+|               | PRECIO_FINAL      | DECIMAL(10,2) NOT NULL DEFAULT(0)     |
 
+| Tabla         | Columna           | Tipo de Datos                         |
+| ------------- | ----------------- |                                  ---: |
+| lOG_OFERTAS   | ID_OFERTA         | INT NOT NULL AI                       |
+|               | ID_PROD           | INT                                   |
+|               | DESCUENTO         | INT                                   |
+|               | PRECIO_LISTA      | DECIMAL(10,2)                         |
+|               | PRECIO_FINAL      | DECIMAL(10,2)                         |
+|               | TIEMPO            | TIMESTAMP DEFAULT CURRENT_TIMESTAMP   |
+
+
+| Tabla         | Columna           | Tipo de Datos                         |
+| ------------- | ----------------- |                                  ---: |
+| lOG_ERRORES   | ID_ERROR          | INT NOT NULL AI                       |
+|               | ERROR_MESSAGE     | INT                                   |
+|               | ERROR_TIME        | TIMESTAMP DEFAULT CURRENT_TIMESTAMP   |
 
 ## Objetos de la base de datos
 
@@ -184,13 +180,15 @@ SELECT * FROM vw_listado_productos;
 **Ejemplo de consulta:**
 
 ```sql
-SELECT * FROM vw_productos_con_stock
-ORDER BY stock DESC;
+-- Obtener los productos con stock mayor a 20 y su precio de lista
+SELECT nombre_prod, precio_lista
+FROM vw_productos_con_stock
+WHERE Stock > 20;
 ```
 
 ### Vista: vw_vendedores_facturas
 
-**Descripción:** Esta vista muestra el registro de ventas hecchas por cada vendedor junto a su comision
+**Descripción:** Esta vista muestra el registro de ventas hechas por cada vendedor junto a su comision
 
 **Columnas:**
 
@@ -202,7 +200,10 @@ ORDER BY stock DESC;
 **Ejemplo de consulta:**
 
 ```sql
-SELECT * FROM vw_vendedores_facturas
+-- Obtener las facturas con comisión superior a $500
+SELECT id_fact, nombre_vendedor, comision
+FROM vw_vendedores_facturas
+WHERE comision > 500
 ORDER BY comision DESC;
 ```
 
@@ -220,8 +221,10 @@ ORDER BY comision DESC;
 **Ejemplo de consulta:**
 
 ```sql
-SELECT * FROM vw_vw_factura_detalle
-ORDER BY total_factura DESC;
+-- Obtener los detalles de las facturas que incluyen el producto "Serum Antiedad"
+SELECT Id_Factura, nombre_cliente, productos_involucrados, total_factura
+FROM vw_factura_detalle
+WHERE productos_involucrados LIKE '%Serum Antiedad%';
 ```
 
 
@@ -240,7 +243,7 @@ ORDER BY total_factura DESC;
 **Ejemplo:**
 
 * Se inserta una nueva oferta para productos seleccionados.
-* El trigger toma el precio de lsita de cada producto y le saca el porcentaje indicado en el numero registrado en el campo descuento.
+* El trigger toma el precio de lista de cada producto y le saca el porcentaje indicado en el numero registrado en el campo descuento.
 
 ### Trigger: trg_calcula_total
 
@@ -272,8 +275,96 @@ ORDER BY total_factura DESC;
 * El trigger toma el total de todos los pruductos en una misma factura y los suma para obtener el total.
 
 
+# Documentación de Procedimientos Almacenados
+
+## Procedimiento Almacenado: `actualizarTotalFactura`
+
+**Descripción:** Este procedimiento calcula y actualiza el total de una factura en la tabla `facturaciones` a partir de los totales de los productos facturados.
+
+**Parámetros:**
+- `idFactura`: El identificador único de la factura.
+
+**Ejemplo de uso:**
+
+```sql
+-- Llamar al procedimiento para actualizar el total de la factura con ID 123
+CALL actualizarTotalFactura(5);
+```
+
+# Documentación de Procedimientos Almacenados
+
+## Procedimiento Almacenado: `actualizarStock`
+
+**Descripción:** Este procedimiento actualiza el stock de productos agregando una cantidad específica.
+
+**Parámetros:**
+- `cantidadNueva`: La cantidad a agregar al stock existente.
+
+**Ejemplo de uso:**
+
+```sql
+-- Llamar al procedimiento para aumentar el stock en 50 unidades
+CALL actualizarStock(50);
+```
+
+# Documentación de Procedimientos Almacenados
+
+## Procedimiento Almacenado: `actualizarStockSolo`
+
+**Descripción:** Este procedimiento actualiza el stock de productos específicos (filtrados por nombre) agregando una cantidad determinada.
+
+**Parámetros:**
+- `nombreProducto`: El nombre (o parte del nombre) del producto a actualizar.
+- `cantidadNueva`: La cantidad a agregar al stock existente.
+
+**Ejemplo de uso:**
+
+```sql
+-- Llamar al procedimiento para aumentar el stock del producto "Serum Antiedad" en 10 unidades
+CALL actualizarStockSolo('Serum Antiedad', 10);
+```
+# Documentación de Funciones
+
+## Función: `calcularPrecioFinal`
+
+**Descripción:** Esta función calcula el precio final de un producto aplicando un porcentaje de descuento al precio de lista.
+
+**Parámetros:**
+- `precioLista`: El precio de lista del producto.
+- `porcentajeDescuento`: El porcentaje de descuento a aplicar.
+
+**Ejemplo de uso:**
+
+```sql
+-- Calcular el precio final con un descuento del 20% para un producto con precio de lista $100
+SELECT calcularPrecioFinal(100, 20); -- Devuelve 80.00
+```
+
+# Documentación de Funciones
+
+## Función: `obtenerPrecioLista`
+
+**Descripción:** Esta función obtiene el precio de lista de un producto específico.
+
+**Parámetros:**
+- `id_producto`: El identificador único del producto.
+
+**Ejemplo de uso:**
+
+```sql
+-- Obtener el precio de lista del producto con ID 456
+SELECT obtenerPrecioLista(456); -- Devuelve el precio de lista correspondiente
+```
+
+## Como correr mi codigo
+1. crear un codespace y situarse dentro de la carpeta del proyecto
+2. en la terminal colocar el comando --> make
+3. disfrutar la base de datos
+
 ## Herramientas y tecnologias usadas
 * MySQL (Motor de bases de datos )
 * Dbeaver (Interfaz grafica)
 * Microsoft Copilot (para automatizar el script de ingreso de datos ficticios)
   
+----------------------
+

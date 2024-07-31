@@ -12,7 +12,7 @@ CREATE VIEW vw_listado_productos as
 
 -- vista que liste los productos disponibles (stock > 0)
 CREATE VIEW vw_productos_con_stock AS 
-	SELECT id_prod, nombre_prod, stock
+	SELECT id_prod, nombre_prod, stock, precio_lista
 	FROM productos
 		WHERE stock > 0;
 

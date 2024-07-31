@@ -11,9 +11,10 @@ USER=${MYSQL_USER}
 
 DOCKER_COMPOSE_FILE=./docker-compose.yml
 DATABASE_CREATION=./sql_project/database_structure.sql
+FILES=vistas funciones stored_procedures triggers
 DATABASE_POPULATION=./sql_project/population.sql
 
-FILES=vistas funciones stored_procedures triggers
+
 
 
 .PHONY: all up objects test-db access-db down
