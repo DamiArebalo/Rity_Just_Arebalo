@@ -2,8 +2,8 @@ USE rityjust;
 
 -- creacion de procedures 
 DELIMITER //
-
-CREATE PROCEDURE IF NOT EXISTS actualizarTotalFactura(IN idFactura INT)
+DROP PROCEDURE IF EXISTS actualizarTotalFactura//
+CREATE PROCEDURE actualizarTotalFactura(IN idFactura INT)
 BEGIN
     DECLARE total_amount DECIMAL(12,2);
     
@@ -20,14 +20,16 @@ END //
 
 
 -- proceso para actualizar el stock de todos los productos
-CREATE PROCEDURE IF NOT EXISTS actualizarStock(IN cantidadNueva INT)
+DROP PROCEDURE IF EXISTS actualizarStock
+CREATE PROCEDURE actualizarStock(IN cantidadNueva INT)
 BEGIN
     UPDATE productos
     SET STOCK = STOCK + cantidadNueva;
 END//
 
 -- proceso para actualizar el stock de un solo producto
-CREATE PROCEDURE IF NOT EXISTS actualizarStockSolo(IN nombreProducto VARCHAR(100), IN cantidadNueva INT)
+DROP PROCEDURE IF EXISTS actualizarStockSolo
+CREATE PROCEDURE actualizarStockSolo(IN nombreProducto VARCHAR(100), IN cantidadNueva INT)
 BEGIN
     UPDATE productos
     SET STOCK = STOCK + cantidadNueva

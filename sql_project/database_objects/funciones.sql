@@ -4,8 +4,8 @@ USE rityjust;
 DELIMITER //
 
 -- CREACION DE FUNCIONES
-
-CREATE FUNCTION IF NOT EXISTS calcularPrecioFinal(precioLista DECIMAL(10,2), porcentajeDescuento DECIMAL(5,2))
+DROP FUNCTION IF EXISTS calcularPrecioFinal//
+CREATE FUNCTION calcularPrecioFinal(precioLista DECIMAL(10,2), porcentajeDescuento DECIMAL(5,2))
 RETURNS DECIMAL(10,2)
 DETERMINISTIC
 BEGIN
@@ -14,7 +14,8 @@ BEGIN
     RETURN @precioFinal;
 END//
 
-CREATE FUNCTION IF NOT EXISTS obtenerPrecioLista(id_producto INT)
+DROP FUNCTION IF EXISTS obtenerPrecioLista//
+CREATE FUNCTION obtenerPrecioLista(id_producto INT)
 RETURNS DECIMAL(12,2)
 DETERMINISTIC
 BEGIN
