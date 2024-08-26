@@ -62,6 +62,19 @@ BEGIN
 	CALL actualizarTotalFactura(NEW.id_fact); 
 END//
 
+DROP TRIGGER IF EXISTS control_de_stock//
+CREATE TRIGGER control_de_stock
+BEFORE UPDATE ON productos
+FOR EACH ROW
+BEGIN
+    IF NEW.stock < 0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'No se puede reducir el stock por debajo de 0';
+    END IF;
+END//
+
+DELIMITER ;
+
 
 
 

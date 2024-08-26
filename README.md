@@ -320,6 +320,30 @@ CALL actualizarStock(50);
 -- Llamar al procedimiento para aumentar el stock del producto "Serum Antiedad" en 10 unidades
 CALL actualizarStockSolo('Serum Antiedad', 10);
 ```
+
+## Procedimiento Almacenado: `cambio_de_equipo`
+
+**Descripción:** Este procedimiento permite cambiar el grupo al que pertenece un vendedor en la base de datos.
+
+**Parámetros:**
+- `p_nombre_completo`: El nombre completo del vendedor (VARCHAR(100)).
+- `p_id_grupo`: El ID del nuevo grupo al que se asignará el vendedor (INT).
+
+**Funcionamiento:**
+1. El procedimiento busca al vendedor por su nombre completo.
+2. Si encuentra al vendedor, actualiza su `id_grupo` al nuevo valor proporcionado.
+3. Si no encuentra al vendedor, devuelve un error.
+
+**Manejo de errores:**
+- Si el vendedor no se encuentra, se lanza un error con el mensaje "Vendedor no encontrado".
+- Si ocurre cualquier otro error durante la transacción, se hace un rollback y se lanza un error genérico.
+
+**Ejemplo de uso:**
+
+```sql
+-- Cambiar el vendedor 'Juan Pérez' al grupo con ID 5
+CALL cambio_de_equipo('Juan Pérez', 5);
+```
 # Documentación de Funciones
 
 ## Función: `calcularPrecioFinal`
