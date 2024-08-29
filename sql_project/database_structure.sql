@@ -10,7 +10,7 @@ CREATE TABLE clientes(
 	,dni VARCHAR(8) NOT NULL 
 	,nombre_completo varchar(100) NOT NULL
 	,mail varchar(100) NOT NULL UNIQUE COMMENT 'Dato Validado desde backend con formato mail'
-	,numero_tel VARCHAR(20) NOT NULL UNIQUE 
+	,numero_tel VARCHAR(20) NOT NULL 
 	,PRIMARY KEY (id_cliente) COMMENT 'clave conformada por id_cliente'
 
 )COMMENT 'Tabla con informacion de los clientes al momento de la factura';
