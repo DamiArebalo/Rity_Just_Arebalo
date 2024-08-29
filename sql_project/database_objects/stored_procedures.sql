@@ -71,7 +71,7 @@ BEGIN
     -- Validar si el vendedor existe
     SELECT id_vendedor INTO v_id_vendedor
     FROM vendedores
-    WHERE nombre_completo = p_nombre_completo;
+    WHERE nombre_completo LIKE p_nombre_completo;
 
     IF v_id_vendedor IS NULL THEN
         -- Si el vendedor no existe, finalizar la transacción y mostrar error

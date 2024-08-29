@@ -109,11 +109,11 @@ VALUES
 -- Inserción de datos en la tabla "vendedores"
 INSERT INTO vendedores (id_grupo, nombre_completo, cuit)
 VALUES
-    (1, 'Pedro López', '20345678902'),
+    (1, 'Pedro Lopez', '20345678902'),
     (2, 'Laura Fernández', '20456789013'),
     (1, 'Damian Arebalo', '20345776902'),
     (2, 'Sheila Gonzalez', '20446789013'),
-    (1, 'Juan López', '20345788902'),
+    (1, 'Juan Lopez', '20345788902'),
     (2, 'Abril Fernández', '20426789013'),
     (1, 'Valentín Acosta', '20890123456'),
     (1, 'Martina Blanco', '20901234567'),
