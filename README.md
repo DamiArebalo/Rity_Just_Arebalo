@@ -146,6 +146,7 @@
 | lOG_ERRORES   | ID_ERROR          | INT NOT NULL AI                       |
 |               | ERROR_MESSAGE     | INT                                   |
 |               | ERROR_TIME        | TIMESTAMP DEFAULT CURRENT_TIMESTAMP   |
+|               | ERROR_DETAILS     | VARCHAR(255)                          |
 
 ## Objetos de la base de datos
 
