@@ -1,4 +1,4 @@
-# <center>Segunda Entrega </center>
+# <center>RITYJUST DATABASE </center>
 @Carlos Damian Arebalo
 
 
@@ -393,7 +393,8 @@ SELECT obtenerPrecioLista(456); -- Devuelve el precio de lista correspondiente
 ## Herramientas y tecnologias usadas
 * MySQL (Motor de bases de datos )
 * Dbeaver (Interfaz grafica)
-* Microsoft Copilot (para automatizar el script//csv de ingreso de datos ficticios) 
+* Microsoft Copilot (para automatizar el script//csv de ingreso de datos ficticios)
+* Backup realizado desde sheel con el comando "mysqldump -u root -p rityjust > ./Backup/bk_rityjust.sql"
   
 ----------------------
 
