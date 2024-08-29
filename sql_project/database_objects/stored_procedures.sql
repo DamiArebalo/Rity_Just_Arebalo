@@ -78,11 +78,20 @@ BEGIN
         ROLLBACK;
         CALL manejar_error("Vendedor no encontrado", p_id_grupo, p_nombre_completo);
     ELSE
-        -- Si el vendedor existe, actualizar su grupo
-        UPDATE vendedores
-        SET id_grupo = p_id_grupo
-        WHERE id_vendedor = v_id_vendedor;
+        -- Si el vendedor existe, validar si existe el grupo 
+        SET @v_id_grupo =(SELECT id_grupo 
+                            FROM grupos
+                            WHERE id_grupo =p_id_grupo);
 
+        IF @v_id_grupo IS NULL THEN
+            ROLLBACK;
+            CALL manejar_error("grupo no encontrado", p_id_grupo, p_nombre_completo);
+        ELSE
+            -- SI EL GRUPO EXITE ACTUALIZAR GRUPO
+            UPDATE vendedores
+            SET id_grupo = p_id_grupo
+            WHERE id_vendedor = v_id_vendedor;
+        END IF;
         -- Confirmar la transacción
         COMMIT;
     END IF;
