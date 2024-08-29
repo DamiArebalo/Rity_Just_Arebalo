@@ -4,31 +4,29 @@ USE rityjust;
 	
 DELIMITER //
 
-USE rityjust;
 
-DELIMITER //
+
 DROP TRIGGER IF EXISTS trg_ofertas_calcula_precio_final//
 CREATE TRIGGER  trg_ofertas_calcula_precio_final
 BEFORE INSERT ON ofertas
 FOR EACH ROW
 BEGIN
-    DECLARE precio_lista DECIMAL(12,2);
+    
     DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
     BEGIN
         -- Insertar el mensaje de error en la tabla de log de errores
-        INSERT INTO log_errores (error_message)
-        VALUES (CONCAT('Error in trg_ofertas_calcula_precio_final: ', ERROR_MESSAGE()));
+        CALL manejar_error("Error al calcular precio de oferta", NEW.id_prod , NEW.descuento);
     END;
 
     -- Obtener el precio de lista del producto
-    SET precio_lista = obtenerPrecioLista(NEW.id_prod);
+    SET @precio_lista = obtenerPrecioLista(NEW.id_prod);
 
     -- Calcular el precio final utilizando la función calcularPrecioFinal
-    SET NEW.precio_final = COALESCE(calcularPrecioFinal(precio_lista, NEW.descuento), 0);
+    SET NEW.precio_final = COALESCE(calcularPrecioFinal(@precio_lista, NEW.descuento), 0);
 
     -- Insertar los valores en la tabla de registro
     INSERT INTO log_ofertas (id_prod, precio_lista, descuento, precio_final)
-    VALUES (NEW.id_prod, precio_lista, NEW.descuento, NEW.precio_final);
+    VALUES (NEW.id_prod, @precio_lista, NEW.descuento, NEW.precio_final);
 END //
 
 
@@ -68,10 +66,9 @@ BEFORE UPDATE ON productos
 FOR EACH ROW
 BEGIN
     IF NEW.stock < 0 THEN
-        SIGNAL SQLSTATE '45000' 
-        SET MESSAGE_TEXT = 'No se puede reducir el stock por debajo de 0';
+        CALL manejar_error('Stock no puede ser negativo', NEW.id_prod, NEW.stock);
     END IF;
-END//
+END //
 
 DELIMITER ;
 

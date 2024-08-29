@@ -1,6 +1,21 @@
 USE rityjust;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS manejar_error//
+CREATE PROCEDURE manejar_error(
+    IN p_mensaje VARCHAR(100),
+    IN p_id_producto INT,
+    IN p_valor INT
+)
+BEGIN
+    -- Insertar el error en la tabla de log
+    INSERT INTO log_errores (error_message, error_details)
+    VALUES (p_mensaje, CONCAT('Producto ID: ', p_id_producto, ', Valor/Descuento: ', p_valor));
+    
+    -- Lanzar el error para que sea capturado por la aplicación
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = p_mensaje;
+END //
 
 DROP PROCEDURE IF EXISTS actualizarTotalFactura//
 CREATE PROCEDURE actualizarTotalFactura(IN idFactura INT)
@@ -47,7 +62,7 @@ BEGIN
     BEGIN
         -- Manejo de errores
         ROLLBACK;
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Vendedor no encontrado';
+        CALL manejar_error("Vendedor no encontrado", p_id_grupo, p_nombre_completo);
     END;
 
     -- Iniciar la transacción
@@ -61,7 +76,7 @@ BEGIN
     IF v_id_vendedor IS NULL THEN
         -- Si el vendedor no existe, finalizar la transacción y mostrar error
         ROLLBACK;
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Vendedor no encontrado';
+        CALL manejar_error("Vendedor no encontrado", p_id_grupo, p_nombre_completo);
     ELSE
         -- Si el vendedor existe, actualizar su grupo
         UPDATE vendedores

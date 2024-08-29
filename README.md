@@ -341,8 +341,8 @@ CALL actualizarStockSolo('Serum Antiedad', 10);
 **Ejemplo de uso:**
 
 ```sql
--- Cambiar el vendedor 'Juan Pérez' al grupo con ID 5
-CALL cambio_de_equipo('Juan Pérez', 5);
+-- Cambiar el vendedor 'Juan Pérez' al grupo con ID 2
+CALL cambio_de_equipo('Juan Pérez', 2);
 ```
 # Documentación de Funciones
 
