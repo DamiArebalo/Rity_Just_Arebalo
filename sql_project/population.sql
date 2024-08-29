@@ -47,20 +47,20 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 
-LOAD DATA LOCAL INFILE '/sql_project/data_csv/ofertas.csv'
+LOAD DATA LOCAL INFILE './sql_project/data_csv/ofertas.csv'
 INTO TABLE ofertas
 FIELDS TERMINATED BY ',' ENCLOSED BY '\"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
-LOAD DATA LOCAL INFILE '/sql_project/data_csv/facturaciones.csv'
+LOAD DATA LOCAL INFILE './sql_project/data_csv/facturaciones.csv'
 INTO TABLE facturaciones
 FIELDS TERMINATED BY ',' ENCLOSED BY '\"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 
-LOAD DATA LOCAL INFILE '/sql_project/data_csv/link_fact_producto.csv'
+LOAD DATA LOCAL INFILE './sql_project/data_csv/link_fact_producto.csv'
 INTO TABLE link_fact_producto
 FIELDS TERMINATED BY ',' ENCLOSED BY '\"'
 LINES TERMINATED BY '\n'
