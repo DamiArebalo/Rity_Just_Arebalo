@@ -11,7 +11,7 @@ VALUES
     ('65432109', 'Benjamín Torres', 'benjamin.torres@hotmail.com', '1199001122'),
     ('54321098', 'Isabella Sánchez', 'isabella.sanchez@gmail.com', '1100112233'),
     ('43210987', 'Santiago Ramírez', 'santiago.ramirez@hotmail.com', '1111223344'),
-    ('32109876', 'Emma Flores', 'emma.flores@gmail.com', '1122334455'),
+    ('32109876', 'Emma Flores', 'emma.flores@gmail.com', '1122334456'),
     ('21098765', 'Sebastián Castro', 'sebastian.castro@hotmail.com', '1133445566'),
     ('10987654', 'Olivia Ortiz', 'olivia.ortiz@gmail.com', '1144556677'),
     ('09876543', 'Nicolás Morales', 'nicolas.morales@hotmail.com', '1155667788'),
@@ -19,12 +19,8 @@ VALUES
     ('87654321', 'Emiliano Vargas', 'emiliano.vargas@hotmail.com', '1177889900'),
     ('76543210', 'Renata Silva', 'renata.silva@gmail.com', '1188990011'),
     ('65432109', 'Thiago Mendoza', 'thiago.mendoza@hotmail.com', '1199001122'),
-    ('54321098', 'Antonella Rojas', 'antonella.rojas@gmail.com', '1100112233'),
-    ('43210987', 'Joaquín Herrera', 'joaquin.herrera@hotmail.com', '1111223344'),
-    ('32109876', 'Catalina Acosta', 'catalina.acosta@gmail.com', '1122334455'),
-    ('21098765', 'Bautista Peralta', 'bautista.peralta@hotmail.com', '1133445566'),
-    ('10987654', 'Delfina Molina', 'delfina.molina@gmail.com', '1144556677'),
-    ('09876543', 'Máximo Vega', 'maximo.vega@hotmail.com', '1155667788');
+    ('54321098', 'Antonella Rojas', 'antonella.rojas@gmail.com', '1100112233');
+ 
    
 --  registros ficticios para la tabla "categorias"
 INSERT INTO categorias (nombre_cat)
@@ -145,7 +141,7 @@ VALUES
     (2, '2024-04-06', TRUE),
     (3, '2024-04-10', TRUE),
     (4, '2024-04-15', TRUE),
-    (4, '2024-04-20', TRUE),
+    (13, '2024-04-20', TRUE),
     (2, '2024-04-25', TRUE),
     (1, CURDATE(), FALSE),
     (2, CURDATE(), FALSE),
@@ -163,14 +159,9 @@ VALUES
     (9, '2024-06-15', FALSE),
     (10, '2024-06-20', TRUE),
     (11, '2024-06-25', TRUE),
-    (12, '2024-06-30', FALSE),
-    (13, '2024-07-05', TRUE),
-    (14, '2024-07-10', TRUE),
-    (15, '2024-07-15', FALSE),
-    (16, '2024-07-20', TRUE),
-    (17, '2024-07-25', TRUE),
-    (18, '2024-07-30', FALSE),
-    (19, '2024-08-05', TRUE);
+    (12, '2024-06-30', FALSE);
+
+   
 
 
 -- Inserción de datos en la tabla "link_fact_producto"
@@ -242,12 +233,4 @@ VALUES
     (20, 11),
     (21, 12),
     (22, 13),
-    (23, 14),
-    (24, 15),
-    (25, 16),
-    (26, 17),
-    (27, 18),
-    (28, 19),
-    (29, 20),
-    (30, 21);
-
+    (23, 14);
