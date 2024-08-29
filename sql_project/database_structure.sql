@@ -16,13 +16,13 @@ CREATE TABLE clientes(
 )COMMENT 'Tabla con informacion de los clientes al momento de la factura';
 
 
-CREATE TABLE categorias(
+CREATE TABLE IF NOT EXISTS categorias(
 	id_cat int NOT NULL AUTO_INCREMENT
 	,nombre_cat VARCHAR(60) COMMENT 'nombre de la categoria'
 	,PRIMARY KEY(id_cat)
 )COMMENT 'Tabla que contiene las categorias de los productos';
 
-CREATE TABLE productos(
+CREATE TABLE IF NOT EXISTS productos(
 	id_prod INT NOT NULL AUTO_INCREMENT
 	,id_cat INT NOT NULL COMMENT 'Campo con FK'
 	,descripcion VARCHAR(150) NOT NULL COMMENT 'Descripcion de los beneficios del producto'
@@ -34,7 +34,7 @@ CREATE TABLE productos(
 )COMMENT'TABLA CON INFORMACION PROPIA DE CADA PRODUCTO';
 
 
-CREATE TABLE ofertas(
+CREATE TABLE IF NOT EXISTS ofertas(
 	id_oferta INT NOT NULL AUTO_INCREMENT
 	,id_prod INT NOT NULL COMMENT 'Campo FK con tabla PRODUCTOS'
 	,descuento INT NOT NULL DEFAULT(0) COMMENT 'Porcentaje de descuento de 2 digitos SI ES 0 = NO HAY DESCUENTO'
@@ -43,7 +43,7 @@ CREATE TABLE ofertas(
 )COMMENT'TABLA CON LA INFORMACION DE LAS OFERTAS VIGENTES O NO VIGENTES DE LOS PRODUCTOS';
 
 
-CREATE TABLE facturaciones(
+CREATE TABLE IF NOT EXISTS facturaciones(
 	id_fact INT NOT NULL AUTO_INCREMENT
 	,id_cliente INT NOT NULL COMMENT 'cliente foraneo a tabla clientes'
 	,total DECIMAL(12,2) DEFAULT(0) COMMENT'total de la factura calculado con la suma de los totales de productos facturados'
@@ -52,7 +52,7 @@ CREATE TABLE facturaciones(
 	,PRIMARY KEY(id_fact) 
 )COMMENT 'TABLA CON INFORMACION PROPIA DE CADA FACTURA';
 
-CREATE TABLE link_fact_producto(
+CREATE TABLE IF NOT EXISTS link_fact_producto(
 	id_prod INT NOT NULL
 	,id_fact INT NOT NULL
 	,cantidad INT NOT NULL DEFAULT (1) COMMENT 'cantidad del pructo agregado'
@@ -60,20 +60,20 @@ CREATE TABLE link_fact_producto(
 	,PRIMARY KEY(id_prod, id_fact)
 )COMMENT 'Tabla de relacion entre productos y facturas';
 
-CREATE TABLE lideres(
+CREATE TABLE IF NOT EXISTS lideres(
 	id_lider INT NOT NULL AUTO_INCREMENT
 	,nombre_completo VARCHAR(100) NOT NULL
 	,cuit VARCHAR(11) NOT NULL  
 	,PRIMARY KEY(id_lider)
 ) COMMENT 'TABLA DE INFORMACION DE LIDERES';
 
-CREATE TABLE grupos(
+CREATE TABLE IF NOT EXISTS grupos(
 	id_grupo INT NOT NULL AUTO_INCREMENT
 	,id_lider INT NOT NULL
 	,PRIMARY KEY(id_grupo) 
 )COMMENT 'TABLA DE INFO DE GRUPOS CON SU LIDER';
 
-CREATE TABLE vendedores(
+CREATE TABLE IF NOT EXISTS vendedores(
 	id_vendedor INT NOT NULL AUTO_INCREMENT
 	,id_grupo INT NOT NULL
 	,nombre_completo VARCHAR(100) NOT NULL
@@ -82,7 +82,7 @@ CREATE TABLE vendedores(
 	
 )COMMENT 'TABLA CON INFOMRACION PROPIA DE CADA VENDEDOR';
 
-CREATE TABLE link_vendedor_fact(
+CREATE TABLE IF NOT EXISTS link_vendedor_fact(
 	id_vendedor INT NOT NULL
 	,id_fact INT NOT NULL
 	,PRIMARY KEY(id_vendedor, id_fact)

@@ -46,19 +46,12 @@ FIELDS TERMINATED BY ',' ENCLOSED BY '\"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
-CREATE TEMPORARY TABLE temp_ofertas LIKE ofertas;
-
 
 LOAD DATA LOCAL INFILE '/sql_project/data_csv/ofertas.csv'
-INTO TABLE temp_ofertas
+INTO TABLE ofertas
 FIELDS TERMINATED BY ',' ENCLOSED BY '\"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
-
-INSERT INTO ofertas (id_oferta, id_prod, descuento, precio_final)
-SELECT id_oferta, id_prod, descuento, precio_final FROM temp_ofertas;
-
-
 
 LOAD DATA LOCAL INFILE '/sql_project/data_csv/facturaciones.csv'
 INTO TABLE facturaciones
@@ -67,16 +60,12 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 
-CREATE TEMPORARY TABLE temp_linkeo LIKE link_fact_producto;
-
 LOAD DATA LOCAL INFILE '/sql_project/data_csv/link_fact_producto.csv'
-INTO TABLE temp_linkeo
+INTO TABLE link_fact_producto
 FIELDS TERMINATED BY ',' ENCLOSED BY '\"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
-INSERT INTO link_fact_producto (id_prod, id_fact, cantidad, total)
-SELECT id_prod, id_fact, cantidad, total FROM temp_linkeo;
 
 
 LOAD DATA LOCAL INFILE '/sql_project/data_csv/link_fact_vendedor.csv'

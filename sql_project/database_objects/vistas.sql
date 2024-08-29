@@ -38,7 +38,7 @@ CREATE VIEW vw_factura_detalle AS
     	f.id_fact,
     	MAX(c.nombre_completo) AS nombre_cliente,
     	MAX(v.nombre_completo) AS nombre_vendedor,
-    	GROUP_CONCAT(CONCAT(lfp.cantidad, ' ', p.nombre_prod,' ') AS productos_involucrados,
+    	GROUP_CONCAT(CONCAT(lfp.cantidad, ' ', p.nombre_prod)) AS productos_involucrados,
     	SUM(lfp.total) AS total_factura
 	FROM facturaciones f
 	    JOIN link_fact_producto lfp ON f.id_fact = lfp.id_fact
